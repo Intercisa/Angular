@@ -1,0 +1,15 @@
+<!--interpolation: User Name:<input type="text" name="username" value="{{username}}" - one-way data binding 
+    event binding: <button (click)=handleLogin()>Login</button>
+    banan in a box: User Name: <input type="text" name="username" [(ngModel)]="username">  - two-way data binding 
+                angular directives >> [(ngModel)]
+
+    angular attributes: *ngIf='invalidLogin'
+-->
+
+<small *ngIf='invalidLogin'>{{errorMessage}}</small>
+<div>
+User Name: <input type="text" name="username" [(ngModel)]="username">
+Password: <input type="password" name="pasword" [(ngModel)]="password">
+
+<button (click)=handleLogin()>Login</button>
+</div>
