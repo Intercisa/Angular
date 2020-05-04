@@ -1,15 +1,18 @@
 <!--interpolation: User Name:<input type="text" name="username" value="{{username}}" - one-way data binding 
     event binding: <button (click)=handleLogin()>Login</button>
     banan in a box: User Name: <input type="text" name="username" [(ngModel)]="username">  - two-way data binding 
-                angular directives >> [(ngModel)]
+                angular directives >> [(ngModel)] -> needs to import { FormsModule } from '@angular/forms' in app.modules to work 
 
     angular attributes: *ngIf='invalidLogin'
 -->
+<h1>Login!</h1>
+<div class="container">
+    <div class="alert alert-warning" *ngIf='invalidLogin'>{{errorMessage}}</div>
 
-<small *ngIf='invalidLogin'>{{errorMessage}}</small>
-<div>
-User Name: <input type="text" name="username" [(ngModel)]="username">
-Password: <input type="password" name="pasword" [(ngModel)]="password">
+    <div>
+    User Name: <input type="text" name="username" [(ngModel)]="username">
+    Password: <input type="password" name="pasword" [(ngModel)]="password">
 
-<button (click)=handleLogin()>Login</button>
+        <button (click)=handleLogin() class="btn btn-success">Login</button>
+    </div>
 </div>
