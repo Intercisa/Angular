@@ -8,12 +8,12 @@ export class HardcodedAuthenticationService {
   constructor() { }
 
   authenticate(username, password){
-        console.log('before: '+this.isUserLoggedIn())
+        //console.log('before: '+this.isUserLoggedIn())
 
         if(username==='sipi' && password === '1234'){
           sessionStorage.setItem('authenticatedUser', username)
           
-          console.log('after: '+this.isUserLoggedIn())
+          //console.log('after: '+this.isUserLoggedIn())
           return true
         }
         return false
@@ -22,6 +22,10 @@ export class HardcodedAuthenticationService {
   isUserLoggedIn(){
     let user = sessionStorage.getItem('authenticatedUser')
     return !(user === null)
+  }
+
+  logout(){
+    sessionStorage.removeItem('authenticatedUser');
   }
 
 }

@@ -6,6 +6,7 @@
 //import org.springframework.boot.SpringApplication;
 import { Component, OnInit } from '@angular/core'; //'./app.component';
 import { ActivatedRoute } from '@angular/router';
+import { WelcomeDataService } from '../service/data/welcome-data.service';
 //import {AppComponent} from '../app.component' -> import classes 
 
 //@ComponentScan(value="com.springboot.web")
@@ -25,14 +26,20 @@ export class WelcomeComponent implements OnInit { //export means you can use thi
 
   //public SpringBootFirstWebApplication(){
   //ActivatedRouter - parameter acception   
-  constructor(private route:ActivatedRoute) { }
+  constructor(private route:ActivatedRoute, 
+    private welcomeDataService:WelcomeDataService) { }
 
   //void init(){
   ngOnInit(): void {
     this.name =  this.route.snapshot.params['name']
-    console.log(this.route.snapshot.params['name']) //picking up parameter and print on the log 
-    console.log(this.message)
+    //console.log(this.route.snapshot.params['name']) //picking up parameter and print on the log 
+    //console.log(this.message)
   }
+
+  getWelcomeMessage(){
+    this.welcomeDataService.executeHelloWorldBeanService();
+  }
+
 }
 
 export class Class1{} //how you declare a class 
