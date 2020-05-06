@@ -1,35 +1,33 @@
 //in typescript 1 file for modul! -> moduls is how orginazie classes
 
 
-//package com.springboot.web;
-
-//import org.springframework.boot.SpringApplication;
 import { Component, OnInit } from '@angular/core'; //'./app.component';
 import { ActivatedRoute } from '@angular/router';
 import { WelcomeDataService } from '../service/data/welcome-data.service';
 //import {AppComponent} from '../app.component' -> import classes 
 
-//@ComponentScan(value="com.springboot.web")
+
 @Component({
   selector: 'app-welcome',
   templateUrl: './welcome.component.html',
   styleUrls: ['./welcome.component.css']
 })
 
-//public class SpringBootFirstWebApplication implements SomeInterface{
+
 export class WelcomeComponent implements OnInit { //export means you can use this class outside of the boundaries of this file 
 
   //String message = "Some Welcome Message"; Java
   //message ='Some Welcome Message'; JavaScript
-  message : string ='Some Welcome Message'; //even if you remove the ": string" part TypeScript will know it's a string 
+  messageFromService : String 
+  errorMsg : String
   name : ''
 
-  //public SpringBootFirstWebApplication(){
+
   //ActivatedRouter - parameter acception   
   constructor(private route:ActivatedRoute, 
     private welcomeDataService:WelcomeDataService) { }
 
-  //void init(){
+
   ngOnInit(): void {
     this.name =  this.route.snapshot.params['name']
     //console.log(this.route.snapshot.params['name']) //picking up parameter and print on the log 
@@ -37,8 +35,32 @@ export class WelcomeComponent implements OnInit { //export means you can use thi
   }
 
   getWelcomeMessage(){
-    this.welcomeDataService.executeHelloWorldBeanService();
+    console.log(this.welcomeDataService.executeHelloWorldBeanService())
+    this.welcomeDataService.executeHelloWorldBeanService().subscribe(   //very important to subscribe this observable! - it's an asynchronous call!
+      response => this.handlSuccessfulResponse(response), 
+      error => this.handleErrorResponse(error)
+      //response => console.log(response.msg) //it's the same as the above but with the response data //you have to decalre a class structure with msg in welcome-data.service to get msg  
+    ); 
+
+    console.log('last line of getWelcomeMessage ') //will exacuted first, because of observables are asynchronous and let the other codes execute 
   }
+
+
+  getWelcomeMessageWithParameter(){
+    this.welcomeDataService.executeHelloWorldBeanServiceWithPathVariable(this.name).subscribe(
+      response => this.handlSuccessfulResponse(response),
+      error => this.handleErrorResponse(error)
+    );
+  }
+
+handlSuccessfulResponse(response){
+  console.log(response.msg)
+  this.messageFromService = response.msg
+}
+
+handleErrorResponse(error){
+  this.errorMsg = error.error.message
+}
 
 }
 
