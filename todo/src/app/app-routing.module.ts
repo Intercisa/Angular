@@ -7,6 +7,7 @@ import { ListTodosComponent } from './list-todos/list-todos.component';
 import { LogoutComponent } from './logout/logout.component';
 import { ContactComponent } from './contact/contact.component';
 import { RouteGuardService } from './service/route-guard.service';
+import { TodoComponent } from './todo/todo.component';
 
 //default page
 //login
@@ -18,7 +19,10 @@ const routes: Routes = [
   {path:'welcome/:name', component: WelcomeComponent, canActivate:[RouteGuardService]}, // '/:name' -> parameter expected //canActivate -> RouteGuard Service! 
   {path:'todos', component: ListTodosComponent, canActivate:[RouteGuardService]},
   {path:'logout', component: LogoutComponent, canActivate:[RouteGuardService]},
+  {path:'todos/:id', component: TodoComponent,canActivate:[RouteGuardService]},
+ 
   {path:'contacts', component: ContactComponent},
+ 
   {path:'**', component: ErrorComponent} // '**' ->   anything else goes to here 
 ];
 

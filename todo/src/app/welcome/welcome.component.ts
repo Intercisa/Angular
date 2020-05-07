@@ -24,7 +24,8 @@ export class WelcomeComponent implements OnInit { //export means you can use thi
 
 
   //ActivatedRouter - parameter acception   
-  constructor(private route:ActivatedRoute, 
+  constructor(
+    private route:ActivatedRoute, 
     private welcomeDataService:WelcomeDataService) { }
 
 
