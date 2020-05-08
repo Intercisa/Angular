@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 export class Todo {
   constructor(
     public id: number,
+    public username:string,
     public description: string,
     public done: boolean,
     public targetDate: Date
@@ -79,6 +80,10 @@ export class ListTodosComponent implements OnInit {
   updateTodo(id){
     console.log(`update ${id}`)
     this.router.navigate(['todos',id])
+  }
+
+  addTodo(){
+    this.router.navigate(['todos',-1]) //in our app all Todo have a positive id, so this way we can show we want to creat a Todo
   }
 
 }
