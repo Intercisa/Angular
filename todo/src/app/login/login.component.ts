@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { HardcodedAuthenticationService } from './../service/hardcoded-authentication.service';
+import { BasicAuthenticationService } from '../service/basic-authentication.service';
 
 @Component({
   selector: 'app-login',
@@ -9,7 +10,7 @@ import { HardcodedAuthenticationService } from './../service/hardcoded-authentic
 })
 export class LoginComponent implements OnInit {
 
-  username = 'sipi' //component property
+  username = '' //component property
   password = ''  
   errorMessage = 'Invalid Credentials'
   invalidLogin = false
@@ -18,20 +19,26 @@ export class LoginComponent implements OnInit {
   //Dependency Injection -> dependeny injection is a built in feature in angualr >> constructor(router:Router) -> constructor injection
   //if you pass something in as a constructor argument that will be abel to use as a member variable 
   constructor(private router:Router, 
-    private hardcodedAuthentication:HardcodedAuthenticationService) { }
+    private hardcodedAuthentication:HardcodedAuthenticationService,
+    private basicAuthenticationService: BasicAuthenticationService) { }
 
   ngOnInit(): void {
   }
 
-  handleLogin(){ //component event 
+  handleBasicAuthLogin(){ //component event 
     
-    if(this.hardcodedAuthentication.authenticate(this.username, this.password)){
-      //redirect to Welcome page
-      this.router.navigate(['welcome',this.username]) //it accpet an array, the first element is the page you want to go, then a parameter 
-      this.invalidLogin = false
-    }else{
-      this.invalidLogin = true
-    }
- 
+    this.basicAuthenticationService.executeAuthenticationService(this.username, this.password)
+    .subscribe(
+      data => {
+        console.log(data)
+        this.router.navigate(['welcome', this.username])
+        this.invalidLogin = false      
+      },
+      error => {
+        console.log(error)
+        this.invalidLogin = true
+      }
+    )
   }
 }
+
