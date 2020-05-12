@@ -31,7 +31,7 @@ export class TodoComponent implements OnInit {
   }
 
   saveTodo(){
-    if(this.id === -1){ //if it is a new Todo you do not have to call this method 
+    if(this.id == -1){ //if it is a new Todo you do not have to call this method  //need to be == and not === because we compare primitives 
       //create todo
       this.todoService.createTodo('sipi', this.todo).subscribe(
         data =>{

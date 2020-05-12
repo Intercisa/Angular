@@ -34,6 +34,36 @@ export class BasicAuthenticationService {
     } 
 
 
+    executeJWTAuthenticationService(username, password){
+ 
+     /*
+     *  we send this: to ${API_URL}/authenticate
+     *   {
+     *   "username": "sipi",
+     *   "password": "password"
+     *    }
+     * 
+     *  and the response gives as the toke -> data.token !!
+     */
+  
+      return this.http.post<any>(`${API_URL}/authenticate`,{
+        username, 
+        password
+      }).pipe( //if successful do this thing as well 
+        map(
+          data => {
+            sessionStorage.setItem(AUTHENTICATED_USER, username)
+            sessionStorage.setItem(TOKEN, `Bearer ${data.token}`) //set the token and the username into the session storage
+            return data
+          }
+        )
+      ) 
+      } 
+
+
+
+
+
     getAuthenticatedUser(){
       return sessionStorage.getItem(AUTHENTICATED_USER)
     }
