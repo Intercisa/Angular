@@ -1,0 +1,23 @@
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
+      <ul class="nav nav-tabs">
+        <li role="presentation"
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{exact: true}"> <!--only active if this is the exact path-->
+            <a routerLink="/">Home</a></li>
+        <li role="presentation"
+            routerLinkActive="active">
+            <a routerLink="servers">Servers</a></li> <!-- we can use servers here (without the /) because it is always reloads from the root ->localhost:4200 -->
+        <li role="presentation"
+            routerLinkActive="active">
+            <a [routerLink]="['/users']">Users</a></li> <!-- this allows you to construct a more complex path --> 
+      </ul>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>
