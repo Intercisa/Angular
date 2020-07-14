@@ -30,8 +30,13 @@ constructor(private shoppingService:ShopplinglistService){
         ])
       ];
 
-    getRecipes(){
+      getRecipes(){
           return this.recipes.slice(); //slice will return a new array copy
+      }
+      
+
+      getRecipeById(index:number){
+        return this.recipes[index];
       }
 
       addIngredientsToShoppingList(ingredients:Ingredient[]){
