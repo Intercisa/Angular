@@ -1,0 +1,1 @@
+export const API_URL = 'https://ng-course-project-39877.firebaseio.com/posts.json';
