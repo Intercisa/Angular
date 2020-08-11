@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthComponent } from './auth/auth.component';
+import { AuthGurad } from './auth/auth.guard';
 import { RecipeDetailComponent } from './recipes/recipe-detail/recipe-detail.component';
 import { RecipeEditComponent } from './recipes/recipe-edit/recipe-edit.component';
 import { RecipeStartComponent } from './recipes/recipe-start/recipe-start.component';
@@ -12,11 +13,13 @@ import { ShoppingListComponent } from './shopping-list/shopping-list.component';
 
 const appRoutes: Routes = [
 { path: '', redirectTo: '/recipes', pathMatch: 'full'}, //only redirect if the full path is empty 
-{ path: 'recipes', component: RecipesComponent, children: [
-    {path: '', component: RecipeStartComponent, resolve:[RecipesResolverService]},
-    {path: 'new' , component: RecipeEditComponent}, //must go before the onews with params (:id...)
-    {path: ':id', component: RecipeDetailComponent, resolve:[RecipesResolverService]},
-    {path: ':id/edit' , component: RecipeEditComponent, resolve:[RecipesResolverService]}
+{ path: 'recipes', component: RecipesComponent,
+    canActivate: [AuthGurad],
+    children: [
+        {path: '', component: RecipeStartComponent, resolve:[RecipesResolverService]},
+        {path: 'new' , component: RecipeEditComponent}, //must go before the onews with params (:id...)
+        {path: ':id', component: RecipeDetailComponent, resolve:[RecipesResolverService]},
+        {path: ':id/edit' , component: RecipeEditComponent, resolve:[RecipesResolverService]}
 
 ] },
 { path: 'shopping-list', component: ShoppingListComponent},
